@@ -25,7 +25,8 @@ def _create_venv(directory: str, folder=".venv") -> None:
     """
     python = "py" if os.name == "nt" else "python3"
     commands = [
-   #     "cd", directory, ";",
+        "powershell;"
+        "cd", directory, ";",
         python, "-m", "venv", folder, ";",
         python, "-m", "pip", "install", "--upgrade", "pip", ";",
         python, "-m", "pip", "install", "ipython", ";",

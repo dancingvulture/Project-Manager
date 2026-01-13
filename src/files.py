@@ -105,10 +105,8 @@ def _create_directories_file(filename: str) -> None:
     print("directories file does not exist! Creating one..\n")
 
     directories_and_prompts = [
-        ("projects", "Projects directory (absolute) = "),
-        ("project_template", "Project template (absolute) = "),
-        ("master_bash_script", "Master bash script (absolute) = "),
-        ("relative_bash_script", "Bash scripts (relative) = "),
+        ("projects", "Projects directory (full path) = "),
+        ("tests", "Tests directory (full path) = ")
     ]
     directory_dict = {}
     print("Specify each directory")
