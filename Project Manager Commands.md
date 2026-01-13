@@ -8,8 +8,8 @@
 | `view working directory`      | `vw`                   | See the working directory's full path.                                                                                      | -                                                                                          |
 | `subprocess {args}`           | `sp {args}`            | Pass this command directly into the subprocessor.                                                                           | -                                                                                          |
 | `new alias {command} {alias}` | `ca {command} {alias}` | Create a new alias that exists only within this project. <br>'command' is the full command and 'alias' is the shortcut.<br> | - If an alias would overwrite an existing one, there should be a warning and (Y/N) prompt. |
-# Python
 
+# Python
 | Command                           | Alias         | Help                                                              | Notes                                                                     |
 | --------------------------------- | ------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `python3`                         | `py`          | Use the python interpreter.                                       | Only needed on ubuntu.                                                    |
@@ -21,6 +21,7 @@
 | `py -m pip uninstall {module}`    | `pu {module}` | Uninstall a module with pip (will remove from 'requirements.txt') | - Not a system command.<br>- Alters `requirements.txt`                    |
 | `py -m pip install --upgrade pip` | `pg`          | Upgrade pip to the latest version.                                | -                                                                         |
 | `py -m pip list`                  | `pl`          | List all modules pip has installed.                               | -                                                                         |
+| `pip install -r requirements.txt` | `pir`         | Install all modules in the `requirements.txt` file.               | -                                                                         |
 
 # Git
 | Command                                                                                                     | Alias                    | Help                                                                                                     | Notes                                                                                                                        |
