@@ -3,6 +3,7 @@ Public module for handling commands, contains the Handler class.
 """
 
 
+import re
 import subprocess
 import os
 import src._cmd as cmd
@@ -17,11 +18,8 @@ class Handler:
         self._commands: list[cmd.Command] = []  # Should initialize all command classes.
         self._prj_dir, self._test_dir = self._get_directories()
         self._new_prj_template_dir = "new project template"
-
-        if os.name == "nt":  # this should be moved to a command.
-            self._activate_venv = [".\\.venv\\Scripts\\Activate.ps1;"]
-        else:
-            self._activate_venv = ["source" ".venv\\Scripts\\activate;"]
+        separators = [";", "&&"]
+        self._split_pattern = self._create_command_split_pattern(*separators)
 
     def run(self, command: str) -> None:
         """
@@ -55,9 +53,19 @@ class Handler:
         Work through every term in the command, substituting any known
         aliases for their full versions.
         """
-        for alias, full_term in self.aliases.items():
-            command = command.replace(alias, full_term)
-        return command
+        separators = re.compile(self._split_pattern).findall(command)
+        lines = re.split(self._split_pattern, command)
+        lines_new = []
+        for line in lines:
+            for command_ in self._commands:
+                line = command_.replace_alias(line)
+            lines_new.append(line)
+
+        command_new = lines_new.pop(0)
+        for sep in separators:
+            command_new += sep + lines_new.pop(0)
+
+
 
     def _is_system_command(self, command: str) -> bool:
         """
@@ -90,3 +98,12 @@ class Handler:
         prefixes, and optionally the venv_prefix (default False).
         """
 
+    @staticmethod
+    def _create_command_split_pattern(*separators:str) -> str:
+        """
+        Regex splitting function
+        """
+        pattern = ""
+        for sep in separators:
+            pattern += f"{sep}\\s*|"
+        return pattern[:-1]  # Cut off last |
