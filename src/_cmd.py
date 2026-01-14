@@ -40,9 +40,9 @@ class Command:
         self._alias_pattern = self._create_alias_pattern(alias)
 
         if os.name == "nt":  # this should be moved to a command.
-            self._venv_cmd = [".\\.venv\\Scripts\\Activate.ps1;"]
+            self._venv_cmd = ".\\.venv\\Scripts\\Activate.ps1;"
         else:
-            self._venv_cmd = ["source" ".venv/bin/activate;"]
+            self._venv_cmd = "source .venv/bin/activate;"
         self._subprocess_cmd = self._create_subprocess_cmd(command_text, venv=venv)
 
     def run(self, *args) -> None:
@@ -64,20 +64,19 @@ class Command:
                                command_text: str,
                                *,
                                venv=False
-                               ) -> list[str]:
+                               ) -> str:
         """
         Creates the command that will be passed into subprocess.run().
         """
         prefix = self._create_cmd_prefix(venv=venv)
-        cmd = prefix + command_text.split(" ")
-        return cmd
+        return prefix + command_text
 
-    def _create_cmd_prefix(self, *, venv=False) -> list[str]:
+    def _create_cmd_prefix(self, *, venv=False) -> str:
         """
         Add any necessary prefix commands for a subprocess command.
         """
-        prefix = ["powershell", "-NoProfile;"] if os.name == "nt" else []
-        prefix += self._venv_cmd if venv else []
+        prefix = "powershell -NoProfile;" if os.name == "nt" else ""
+        prefix += self._venv_cmd if venv else ""
         return prefix
 
     @staticmethod
