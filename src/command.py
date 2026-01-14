@@ -53,7 +53,8 @@ class Handler:
         Work through every term in the command, substituting any known
         aliases for their full versions.
         """
-        separators = re.compile(self._split_pattern).findall(command)
+        # Split the command by any separators, and then replace all aliases
+        # line by line.
         lines = re.split(self._split_pattern, command)
         lines_new = []
         for line in lines:
@@ -61,6 +62,9 @@ class Handler:
                 line = command_.replace_alias(line)
             lines_new.append(line)
 
+        # Then put it back together, making sure the locations of the
+        # original separators are preserved.
+        separators = re.compile(self._split_pattern).findall(command)
         command_new = lines_new.pop(0)
         for sep in separators:
             command_new += sep + lines_new.pop(0)
