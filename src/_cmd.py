@@ -29,7 +29,8 @@ class Command:
                  help_text: str,
                  *,
                  venv: bool = False,
-                 args:str = "",
+                 pos_args: list[str] | None = None,
+                 opt_args: list[str] | None = None,
                  ):
         self.command_text = self._py_replacer(command_text)
         self.displayed_command_text = self.command_text + args
