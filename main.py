@@ -1,19 +1,23 @@
-"""
-Interface to create, run, and view projects.
+"""\
+Interface to create, run, and view projects.\
 """
 
 
-import src.command as command
+from src.command_line import parse_arguments
+import src.aliases as aliases
+import src.projects as projects
 
 
 def main():
-    handler = command.Handler()
-    handler.run("welcome")
-    while True:
-        display_dir = handler.get_display_directory()
-        cmd = input(f"~//{display_dir}> ")
-        handler.run(cmd)
+    args = parse_arguments()
+    if args.mode == "new-project":
+        projects.create(args.directory)
+    elif args.mode == "aliases":
+        aliases.propogate()
+    else:
+        raise ValueError(f"Invalid mode: {args.mode}")
 
 
 if __name__ == "__main__":
     main()
+
