@@ -61,6 +61,14 @@ alias py='python3'
 alias rn='py main.py'
 alias ts='py test.py'
 alias ipy='ipython'
+
+# Pip
+alias pipi='py -m pip install'
+alias pipg='pipi --upgrade pip'
+alias pipu='py -m pip uninstall'
+alias pipl='py -m pip list'
+alias pipr='py -m pip install -r requirements.txt'
+alias pipd='pipg; pipi ipython'
 alias venv='source .venv/bin/activate'
 function mkvenv() {
     py -m venv --prompt venv .venv
@@ -71,14 +79,6 @@ function mkvenv() {
         pipr
     fi
 }
-
-# Pip
-alias pipi='py -m pip install'
-alias pipg='pipi --upgrade pip'
-alias pipu='py -m pip uninstall'
-alias pipl='py -m pip list'
-alias pipr='py -m pip install -r requirements.txt'
-alias pipd='pipg; pipi ipython'
 
 # Git
 alias gi='git init'

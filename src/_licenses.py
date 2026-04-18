@@ -1,14 +1,9 @@
+"""\
+Text for various licenses.\
 """
-Module containing everything needed to make the license file.
-"""
 
 
-import src.files as files
-from datetime import datetime
-
-
-_DIRECTORIES = files.get_directories()
-_MIT = """MIT License
+MIT = """MIT License
 
 Copyright (c) {} {}
 
@@ -31,15 +26,3 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE."""
 
 
-def create(directory: str=_DIRECTORIES.project_template,
-           license_: str=_MIT,
-           name: str="John Laney"
-           ) -> None:
-    """
-    Create a license in the project template directory. Presently this mostly
-    exists to make sure the year is up to date.
-    """
-    year = datetime.now().year
-    license_text = license_.format(year, name)
-    path = directory + "\\LICENSE"
-    files.create_file(path, license_text)
