@@ -49,6 +49,7 @@ function aliases() {
     echo "| grmu | git rm -r --cached .; ga .;           |" 
     echo "|      | ggc 'removing unused files.'          |"
     echo "| gtr  | git ls-tree -r <branch> --name-only   |"
+    echo "| gcl  | git clone <url> .                     |"
     echo "+==============================================+"
 }
 
@@ -106,5 +107,8 @@ function gtr() {
     local branch="$1"
     eval "git ls-tree -r $branch --name-only"
 }
-
+function gcl() {
+    local url="$1"
+    eval "git clone $url ."
+}
 
