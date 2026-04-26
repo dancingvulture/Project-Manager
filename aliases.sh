@@ -101,7 +101,7 @@ alias gpuo='git push origin'
 alias gch='git checkout'
 alias gchn='git checkout -b'
 alias gsw='git switch'
-alias grmu='git rm -r --cached .; ga .; ggc "removing unused files."'
+alias grmu='git rm -r --cached .; ga .; gc "removing unused files."'
 function gtr() {
     local branch="$1"
     eval "git ls-tree -r $branch --name-only"

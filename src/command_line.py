@@ -30,7 +30,9 @@ def _add_project_subparser(subparsers) -> None:
     )
     parser.add_argument(
         "directory",
-        help="Name of the directory the project will be placed in."
+        help="Name of the directory the project will be placed in. This is not"
+             " the path just the label it will have in the json, the program"
+             " will prompt you for the path."
     )
 
 
