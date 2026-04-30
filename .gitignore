@@ -1,6 +1,7 @@
 # Local developer files
 /.venv/
 /.idea/
+/.vim/
 __pycache__/
 changes.txt
 aliases.sh
