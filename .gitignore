@@ -4,7 +4,6 @@
 /.vim/
 __pycache__/
 changes.txt
-aliases.sh
 
 # Project specific files
 directories.json
