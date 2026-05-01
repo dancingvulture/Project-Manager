@@ -112,3 +112,7 @@ function gcl() {
     eval "git clone $url ."
 }
 
+if [[ -e ~/ssh.sh ]]; then
+    source ~/ssh.sh
+fi
+
