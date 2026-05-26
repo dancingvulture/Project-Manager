@@ -27,7 +27,7 @@ function aliases() {
     echo "|                     GIT                      |"
     echo "+======+=======================================+"
     echo "| gi   | git init                              |"
-    echo "| gcfi | git config                            |"
+    echo "| gcf  | git config                            |"
     echo "| gb   | git branch                            |"
     echo "| gs   | git status                            |"
     echo "| gl   | git log                               |"
