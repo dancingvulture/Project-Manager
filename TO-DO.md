@@ -1,0 +1,9 @@
+- [ ] Separate out alias categories into their own files.
+    - [ ] Combine the general commands in the c aliases file with the ones in the python aliases file
+- [ ] Rewrite propogate to have c and py options.
+    - [ ] Write logic to have language selection pick with .sh scripts to source. It should buuild a new sh file that contains source calls to the chosen files.
+    - [ ] Use Rich to build an ascii display table that is dynamically generated, scanning the shell script's to grab aliases and descriptions. 
+        - [ ] Move shell command descriptions to comments inside of said functions.
+        - [ ] Come up with a syntax and program logic for scraping the shell scripts for alias information.
+- [ ] Rewrite new project to have c and py options.
+- 
