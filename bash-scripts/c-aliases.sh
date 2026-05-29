@@ -36,8 +36,10 @@ function mkvbcrn() {
     mkmc $filename && vbcrn $filename
 }
 function lbcrn() {
-    # alias lbcrn="ls <file.c> | entr -r -s "[DISPLAY] && $bcc $filename && ./a.out""
+    # alias lbcrn="ls <file.c> | entr -r -s "[DISPLAY] && $bcc $filename && ./a.out <args>""
     local filename="$1"
+    shift
+    local args="$@"
     local bcc="${BASH_ALIASES[bcc]}"
 
     local show_date="_date=\$(date +%H:%M:%S) && printf \"\$_date\""
@@ -47,5 +49,6 @@ function lbcrn() {
     local ldisplay="printf '$bookend\n$lside'"
     local rdisplay="printf '$rside\n$bookend\n'"
 
-    ls $filename | entr -s "$ldisplay && $show_date && $rdisplay && $bcc $filename && ./a.out"
+    ls $filename | entr -s "$ldisplay && $show_date && $rdisplay && $bcc $filename && ./a.out $@"
 }
+
