@@ -5,6 +5,10 @@ function mkmc() {
     if [[ -a "$filename" ]]; then
         echo "$filename already exists"
         return 1
+
+    elif [[ -z "$filename" ]]; then
+        echo "you must provide a filename"
+        return 1
     fi
     touch "$filename"
     printf "/* comment */\n\n" > "$filename"
@@ -49,6 +53,6 @@ function lbcrn() {
     local ldisplay="printf '$bookend\n$lside'"
     local rdisplay="printf '$rside\n$bookend\n'"
 
-    ls $filename | entr -s "$ldisplay && $show_date && $rdisplay && $bcc $filename && ./a.out $@"
+    ls $filename | entr -s -r "$ldisplay && $show_date && $rdisplay && $bcc $filename && ./a.out $@"
 }
 
