@@ -4,6 +4,7 @@ Handle command line arguments.\
 
 
 import argparse
+from src.projects import TEMPLATES
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -29,6 +30,29 @@ def _add_project_subparser(subparsers) -> None:
         help="Create a new project",
     )
     parser.add_argument(
+        "--template", "-te",
+        help="Select the template to use,",
+        choices=TEMPLATES,
+        default='',
+    )
+    parser.add_argument(
+        "--no-general", "-nge",
+        help="Don't include the general-aliases in aliases.sh",
+        action="store_true"
+    )
+    parser.add_argument(
+        "--no-git", "-ngi",
+        help="Don't include the git-aliases in aliases.sh",
+        action="store_true"
+    )
+    parser.add_argument(
+        "--languages", "-la",
+        help="List languages (separated by commas), whose associated alias"
+             " files you want to include. Options ",
+        type=lambda x: [y.strip().casefold() for y in x.split(',')],
+        default=[]
+    )
+    parser.add_argument(
         "directory",
         help="Name of the directory the project will be placed in. This is not"
              " the path just the label it will have in the json, the program"
@@ -44,24 +68,23 @@ def _add_aliases_subparser(subparsers) -> None:
     alias_subparsers = parser.add_subparsers(dest="func")
     
     _add_aliases_add_dir_subparser(alias_subparsers)
-    _add_aliases_propogate_subparser(alias_subparsers)
+    _add_aliases_propagate_subparser(alias_subparsers)
 
 
 def _add_aliases_add_dir_subparser(subparsers) -> None:
     parser = subparsers.add_parser(
         "add-dir",
         help="Add a new directory to the directories file, which the aliases"
-             " file will propate to when the propogate function is ran."
+             " file will propagate to when the propagate function is ran."
     )
     parser.add_argument(
         "directory"
     )
 
 
-def _add_aliases_propogate_subparser(subparsers) -> None:
+def _add_aliases_propagate_subparser(subparsers) -> None:
     parser = subparsers.add_parser(
-        "propogate",
-        help="Propogate the master aliases.sh file to all projects, as well as"
-             " any directory containd in the directories file."
+        "propagate",
+        help="Propagate the master aliases.sh file to all projects, as well as"
+             " any directory contained in the directories file."
     )
-

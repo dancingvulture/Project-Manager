@@ -20,12 +20,12 @@ alias gchn='git checkout -b'
 alias gsw='git switch'
 alias grmu='git rm -r --cached .; ga .; gc "removing unused files."'
 function gtr() {
-    # git ls-tree -r <branch> --name-only
+    # alias gtr='git ls-tree -r <branch> --name-only'
     local branch="$1"
     eval "git ls-tree -r $branch --name-only"
 }
 function gcl() {
-    # git clone <url> .
+    # alias gcl='git clone <url> .'
     local url="$1"
     eval "git clone $url ."
 }

@@ -1,3 +1,4 @@
+# SCRIPT FILES: general-aliases.sh, git-aliases.sh, python-aliases.sh
 function aliases() {
     echo "+==============================================+"
     echo "|                   GENERAL                    |"

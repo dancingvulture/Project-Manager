@@ -12,11 +12,17 @@ import src.directories as directories
 def main():
     args = parse_arguments()
     if args.mode == "new-project":
-        projects.create(args.directory)
+        projects.create(
+            args.directory,
+            args.template,
+            args.languages,
+            args.no_general,
+            args.no_git
+        )
 
     elif args.mode == "aliases":
-        if args.func == "propogate":
-            aliases.propogate()
+        if args.func == "propagate":
+            aliases.propagate()
         else:
             directories.get(args.directory)
     else:
@@ -25,4 +31,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

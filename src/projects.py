@@ -12,32 +12,51 @@ import src.aliases as aliases
 import src.directories as directories
 
 
-_NEW_PROJECT_TEMPLATE_DIR = "new project template"
+_TEMPLATES_DIR = "templates"
+TEMPLATES = [
+    "py-project",
+    "c-project",
+]
 
-
-def create(directory: str) -> None:
+def create(directory: str,
+           template: str,
+           languages: list[str],
+           no_gen=False,
+           no_git=False
+           ) -> None:
     """\
     Create a new project in the indicated directory.\
     """
     if os.path.exists(directory):
-        raise ValueError(f"directory {directory} already exsits.")
+        raise ValueError(f"directory {directory} already exists.")
 
     _update_license()
-    _update_aliases()
 
     projects_dir = directories.get("projects")
-    shutil.copytree(
-        _NEW_PROJECT_TEMPLATE_DIR,
+    if template:
+        shutil.copytree(
+            f"{_TEMPLATES_DIR}/{template}",
+            f"{projects_dir}/{directory}",
+        )
+    else:
+        os.mkdir(f"{projects_dir}/{directory}")
+
+    script_list = aliases.create_script_list(
+        languages,
+        no_gen,
+        no_git
+    )
+    aliases.create_file(
         f"{projects_dir}/{directory}",
+        script_list
     )
     print(f"Project {directory} successfully made in {projects_dir}")
 
 
-def _update_license(directory: str=_NEW_PROJECT_TEMPLATE_DIR,
+def _update_license(directory: str=_TEMPLATES_DIR,
                     license_: str=licenses.MIT,
                     name: str="John Laney"
                     ) -> None:
-
     """\
     Create a license in the project template directory. Presently this mostly
     exists to make sure the year is up to date.\
@@ -45,19 +64,6 @@ def _update_license(directory: str=_NEW_PROJECT_TEMPLATE_DIR,
     year = datetime.now().year
     license_text = license_.format(year, name)
 
-    with open(f"{directory}/LICENSE", 'w') as file:
-        file.write(license_text)
-
-
-def _update_aliases(directory: str=_NEW_PROJECT_TEMPLATE_DIR,
-                    alias_filename: str=aliases.ALIASES_FILE,
-                    ) -> None:
-    """\
-    Copy the master aliases file into the new project template.\
-    """
-    with open(alias_filename) as file:
-        contents = file.read()
-
-    with open(f"{directory}/{alias_filename}", 'w') as file:
-        file.write(contents)
-
+    for template in TEMPLATES:
+        with open(f"{directory}/{template}/LICENSE", 'w') as file:
+            file.write(license_text)
